@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>블로그 글 작성</title>
+		<link rel="stylesheet" th:href="@{/css/blog.css}" />
+	</head>
+	<body>
+		<div class="container">
+			<h2>블로그 게시물 등록</h2>
+			<form id="frm" method="post" action="/blog/write" enctype="multipart/form-data">
+				<table class="blog_detail">
+					<tr>
+						<td>제목</td>
+						<td><input type="text" id="title" name="title" /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><textarea id="contents" name="contents"></textarea></td>
+					</tr>
+				</table>
+				<input type="file" id="files" name="files" multiple="multiple" />
+				<input type="submit" id="submit" value="저장" class="btn">
+			</form>
+		</div>	
+	</body>
+</html>

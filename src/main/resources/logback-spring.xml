@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration debug="true">
+	<springProfile name="dev">
+		<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+			<encoder>
+				<pattern>%d %5p {%c} %m%n</pattern>
+			</encoder>	
+		</appender>
+		
+		<appender name="console-infolog" class="ch.qos.logback.core.ConsoleAppender">
+			<encoder>
+				<pattern>%d %5p %m%n</pattern>
+			</encoder>	
+		</appender>
+	
+		<logger name="blog" level="debug" appender-ref="console"></logger>
+		<logger name="jdbc.sqlonly" level="info" appender-ref="console"></logger>
+		<logger name="jdbc.resultsettable" level="info" appender-ref="console"></logger>
+		
+		<root level="off">
+			<appender-ref ref="console" />
+		</root>
+	</springProfile>	
+	<springProfile name="prod">
+		<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>blog.log</file>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<fileNamePattern>blog-%d{yyyy-MM-dd}.log</fileNamePattern>
+				<maxHistory>30</maxHistory>
+			</rollingPolicy>
+			<encoder>
+				<pattern>%d %5p {%c} %m%n</pattern>
+			</encoder>	
+		</appender>
+		
+		<logger name="blog" level="debug" appender-ref="file"></logger>
+		
+		<root level="off">
+			<appender-ref ref="file" />
+		</root>
+	</springProfile>		
+</configuration>

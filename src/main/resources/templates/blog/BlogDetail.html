@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<title>블로그</title>
+		<link rel="stylesheet" th:href="@{/css/blog.css}" />
+	</head>
+	<body>
+		<div class="container">
+			<h2>블로그 상세내용 조회</h2>
+			<form id="frm" method="post">
+				<input type="hidden" id="id" name="id" th:value="${blog.id}" />
+				
+			
+				<input type="hidden" id="method" name="_method" />
+				
+				<table class="blog_detail">
+					<colgroup>
+					 	<col width="15%" />
+					 	<col width="*"   />
+					 	<col width="15%" />
+					 	<col width="35%" />
+					</colgroup>
+					<tr>
+						<th scope="row">글 번호</th>
+						<td th:text="${blog.id}"></td>
+						<th scope="row">조회수</th>
+						<td th:text="${blog.hitCnt}"></td>
+					</tr>
+					<tr>
+						<th scope="row">작성자</th>
+						<td th:text="${blog.creatorId}"></td>
+						<th scope="row">작성일</th>
+						<td th:text="${blog.createdDatetime}"></td>
+					</tr>
+					<tr>
+						<th scope="row">제목</th>
+						<td colspan="3"><input type="text" id="title" name="title" th:value="${blog.title}" /></td>
+					</tr>
+					<tr>
+						<td colspan="4"><textarea id="contents" name="contents" th:text="${blog.contents}"></textarea></td>
+					</tr>
+				</table>
+			</form>
+			
+			<div class="file_list"> 
+	
+				<a th:each="fileInfo : ${blog.fileInfoList}" 
+				   th:text="|${fileInfo.originalFileName} (${#numbers.formatInteger(T(java.lang.Integer).parseInt(fileInfo.fileSize)/1024, 1, 'DEFAULT')}kb)|"
+				   th:href="|/blog/file/${fileInfo.fileId}/${fileInfo.blog.id}|"></a>
+
+			</div>
+			
+			<input type="button" id="list" class="btn" value="목록으로" />
+			<input type="button" id="update" class="btn" value="수정하기" />
+			<input type="button" id="delete" class="btn" value="삭제하기" />
+
+			<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+			<script>
+				$(function() {
+					$('#list').on('click', function() {
+						location.href = '/blog';
+					});
+					$('#update').on('click', function() {
+						$('#method').val('PUT');
+						let frm = $('#frm')[0];
+						frm.action = '/blog/' + $('#id').val();
+						frm.submit();
+					});
+					$('#delete').on('click', function() {
+						$('#method').val('DELETE');
+						let frm = $('#frm')[0];
+						frm.action = '/blog/' + $('#id').val();
+						frm.submit();
+					});
+				});
+			</script>			
+		</div>	
+	</body>
+</html>
