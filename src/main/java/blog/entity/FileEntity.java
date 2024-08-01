@@ -43,6 +43,6 @@ public class FileEntity {
 	private String updatorId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "blog_idx", nullable = false)
+	@JoinColumn(name = "blog_id", nullable = false)
 	private BlogEntity blog;
 }

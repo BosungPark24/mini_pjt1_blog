@@ -3,6 +3,8 @@ package blog.entity;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +17,7 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "fileInfoList"})
 @Entity
 @Table(name = "blog")
 @NoArgsConstructor
@@ -22,7 +25,7 @@ import lombok.NoArgsConstructor;
 public class BlogEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private int blogId;
 	
 	@Column(nullable = false)
 	private String title;

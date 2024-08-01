@@ -2,6 +2,7 @@
 
 <configuration debug="true">
 	<springProfile name="dev">
+		<conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
 		<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 			<encoder>
 				<pattern>%d %5p {%c} %m%n</pattern>
@@ -18,7 +19,7 @@
 		<logger name="jdbc.sqlonly" level="info" appender-ref="console"></logger>
 		<logger name="jdbc.resultsettable" level="info" appender-ref="console"></logger>
 		
-		<root level="off">
+		<root level="debug">
 			<appender-ref ref="console" />
 		</root>
 	</springProfile>	
